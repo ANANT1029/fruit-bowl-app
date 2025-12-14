@@ -1,9 +1,10 @@
 "use client";
 
+import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import dynamic from "next/dynamic";
 
-export default function OrderPage() {
+function OrderPage() {
   const params = useSearchParams();
   const item = params.get("item");
 
@@ -32,25 +33,23 @@ export default function OrderPage() {
     setSuccess(true);
   };
 
-if (success) {
-  return (
-    <main style={{ padding: 20, fontFamily: "Arial" }}>
-      <h1>✅ Order Placed</h1>
-      <p>Your order has been received.</p>
-      <p>Status: <b>Order Placed</b></p>
+  if (success) {
+    return (
+      <main style={{ padding: 20 }}>
+        <h1>✅ Order Placed</h1>
+        <p>Status: <b>Order Placed</b></p>
 
-      <a href="/payment">
-        <button style={{ marginTop: 15 }}>
-          Proceed to Payment
-        </button>
-      </a>
-    </main>
-  );
-}
-
+        <a href="/payment">
+          <button style={{ marginTop: 15 }}>
+            Proceed to Payment
+          </button>
+        </a>
+      </main>
+    );
+  }
 
   return (
-    <main style={{ padding: 20, fontFamily: "Arial" }}>
+    <main style={{ padding: 20 }}>
       <h1>🧾 Place Your Order</h1>
 
       <p><b>Item:</b> {item}</p>
@@ -59,24 +58,28 @@ if (success) {
         placeholder="Your Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        style={{ display: "block", marginBottom: 10, padding: 8, width: "100%" }}
+        style={{ display: "block", marginBottom: 10, padding: 8 }}
       />
 
       <input
         placeholder="Phone Number"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        style={{ display: "block", marginBottom: 10, padding: 8, width: "100%" }}
+        style={{ display: "block", marginBottom: 10, padding: 8 }}
       />
 
       <textarea
         placeholder="Delivery Address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        style={{ display: "block", marginBottom: 10, padding: 8, width: "100%" }}
+        style={{ display: "block", marginBottom: 10, padding: 8 }}
       />
 
       <button onClick={placeOrder}>Confirm Order</button>
     </main>
   );
 }
+
+export default dynamic(() => Promise.resolve(OrderPage), {
+  ssr: false,
+});

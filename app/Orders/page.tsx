@@ -1,105 +1,43 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import dynamic from "next/dynamic";
 
-export default function OrderPage() {
-  const params = useSearchParams();
-  const item = params.get("item");
+function OrdersPage() {
+  const [orders, setOrders] = React.useState<any[]>([]);
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  const placeOrder = () => {
-    const order = {
-      item,
-      name,
-      phone,
-      address,
-      time: new Date().toLocaleString(),
-      status: "Order Placed",
-    };
-
-    const existingOrders = JSON.parse(
+  React.useEffect(() => {
+    const savedOrders = JSON.parse(
       localStorage.getItem("orders") || "[]"
     );
-
-    existingOrders.push(order);
-    localStorage.setItem("orders", JSON.stringify(existingOrders));
-
-    setSuccess(true);
-  };
+    setOrders(savedOrders);
+  }, []);
 
   return (
-    <main style={{ padding: 20, fontFamily: "Arial", maxWidth: 500 }}>
-      {!success ? (
-        <>
-          <h1>🧾 Place Your Order</h1>
+    <main style={{ padding: 20, fontFamily: "Arial" }}>
+      <h1>📦 Your Orders</h1>
 
-          <p>
-            <b>Item:</b> {item}
-          </p>
-
-          <input
-            placeholder="Your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            style={{
-              display: "block",
-              marginBottom: 10,
-              padding: 8,
-              width: "100%",
-            }}
-          />
-
-          <input
-            placeholder="Phone Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            style={{
-              display: "block",
-              marginBottom: 10,
-              padding: 8,
-              width: "100%",
-            }}
-          />
-
-          <textarea
-            placeholder="Delivery Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            style={{
-              display: "block",
-              marginBottom: 10,
-              padding: 8,
-              width: "100%",
-            }}
-          />
-
-          <button type="button" onClick={placeOrder}>
-            Confirm Order
-          </button>
-        </>
+      {orders.length === 0 ? (
+        <p>No orders found.</p>
       ) : (
-        <>
-          <h1>✅ Order Placed</h1>
-          <p>Your order has been received.</p>
-          <p>
-            Status: <b>Order Placed</b>
-          </p>
-
-          <button
-            style={{ marginTop: 15 }}
-            onClick={() => {
-              window.location.href = "/payment";
+        orders.map((order, index) => (
+          <div
+            key={index}
+            style={{
+              border: "1px solid #ccc",
+              padding: 12,
+              marginBottom: 12,
             }}
           >
-            Proceed to Payment
-          </button>
-        </>
+            <p><b>Item:</b> {order.item}</p>
+            <p><b>Status:</b> {order.status}</p>
+            <p><b>Time:</b> {order.time}</p>
+          </div>
+        ))
       )}
     </main>
   );
 }
+
+export default dynamic(() => Promise.resolve(OrdersPage), {
+  ssr: false,
+});

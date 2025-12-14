@@ -1,11 +1,12 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 function OrdersPage() {
-  const [orders, setOrders] = React.useState<any[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const savedOrders = JSON.parse(
       localStorage.getItem("orders") || "[]"
     );

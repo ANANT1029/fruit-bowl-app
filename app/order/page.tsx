@@ -13,7 +13,11 @@ function OrderPage() {
   const [address, setAddress] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const placeOrder = () => {
+const placeOrder = () => {
+  if (!name || !phone || !address) {
+    alert("Please fill all details");
+    return;
+  }
     const order = {
       item,
       name,

@@ -1,30 +1,69 @@
 export default function Home() {
   return (
-    <main style={{ padding: 20, fontFamily: "Arial" }}>
-      <h1>🥗 Fruit Bowl</h1>
-      <p>Fresh • Healthy • Delivered in 15 minutes</p>
+    <div className="px-4 py-6 space-y-6">
 
-      <hr />
-
-      <div style={{ marginTop: 20 }}>
-        <h2>🍎 Mixed Fruit Bowl</h2>
-        <p>Seasonal fruits with honey</p>
-        <p><b>₹99</b></p>
-        <a href="/order?item=Mixed Fruit Bowl">
-  <button>Order Now</button>
-</a>
-
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <div>
+          <p className="text-gray-400 text-sm">Welcome to</p>
+          <h1 className="text-2xl font-bold">
+            PHALAM 🍃 <span className="text-green-400">Fresh Bowls</span>
+          </h1>
+        </div>
+        <img src="/logo.png" className="w-10 h-10 rounded-full" />
       </div>
 
-      <div style={{ marginTop: 20 }}>
-        <h2>🥑 Protein Salad</h2>
-        <p>High-protein salad for gym lovers</p>
-        <p><b>₹149</b></p>
-       <a href="/order?item=Protein Salad">
-  <button>Order Now</button>
-</a>
-
+      {/* Promo Banner */}
+      <div className="bg-gradient-to-r from-green-500 to-teal-400 p-4 rounded-2xl shadow-lg">
+        <h2 className="text-lg font-semibold">Healthy Starts Here</h2>
+        <p className="text-sm">
+          Fresh fruit bowls delivered in <b>15 minutes</b>
+        </p>
       </div>
-    </main>
+
+      {/* Quick Categories */}
+      <div className="grid grid-cols-2 gap-3">
+        <CategoryCard title="Energy Boost ⚡" />
+        <CategoryCard title="Weight Loss 🥗" />
+        <CategoryCard title="Immunity 🍊" />
+        <CategoryCard title="Corporate Refill 🧑‍💼" />
+      </div>
+
+      {/* Popular Bowls */}
+      <div className="space-y-2">
+        <h2 className="text-xl font-semibold">Trending Bowls 🔥</h2>
+
+        <div className="space-y-3">
+          <BowlCard name="Vitamin Power Bowl" price="₹120" kcal="220" />
+          <BowlCard name="Protein Fruit Mix" price="₹160" kcal="280" />
+          <BowlCard name="Classic Refresh Bowl" price="₹90" kcal="150" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CategoryCard({ title }: any) {
+  return (
+    <div className="bg-[#111827] border border-gray-700 p-4 rounded-xl hover:scale-[1.02] transition shadow">
+      <p className="text-sm">{title}</p>
+    </div>
+  );
+}
+
+function BowlCard({ name, price, kcal }: any) {
+  return (
+    <div className="bg-[#0b1220] border border-gray-700 p-4 rounded-xl shadow hover:scale-[1.01] transition">
+      <div className="flex justify-between">
+        <div>
+          <h3 className="font-semibold">{name}</h3>
+          <p className="text-gray-400 text-sm">{kcal} kcal</p>
+        </div>
+
+        <button className="bg-green-500 px-4 py-2 rounded-lg text-black font-semibold">
+          {price}
+        </button>
+      </div>
+    </div>
   );
 }

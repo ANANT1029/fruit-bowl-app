@@ -1,151 +1,235 @@
 "use client";
+import { useState } from "react";
 
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-white text-black pb-20">
+export default function BowlBuilder() {
+  const [selected, setSelected] = useState<string[]>([]);
+  const [availability, setAvailability] = useState<Record<string, boolean>>({});
 
-      {/* ---------------- HERO CAROUSEL ---------------- */}
-      <section className="w-full overflow-hidden">
-        <div className="w-full h-48 rounded-b-2xl overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1576402187878-974f5a016c35"
-            className="w-full h-full object-cover"
-          />
-        </div>
+  const toggleSelect = (item: string) => {
+    if (!availability[item]) return; // Can't select unavailable items
 
-        <div className="px-4 mt-4">
-          <h1 className="text-2xl font-bold">Fresh • Healthy • Fast</h1>
-          <p className="text-gray-600">Fruit Bowls & Salads delivered in 15 minutes</p>
+    setSelected((prev) =>
+      prev.includes(item)
+        ? prev.filter((i) => i !== item)
+        : [...prev, item]
+    );
+  };
 
-          <a href="/builder">
-            <button className="mt-4 bg-green-500 text-white px-5 py-3 rounded-xl w-full font-semibold shadow">
-              Build Your Own Bowl 🍓
-            </button>
-          </a>
-        </div>
-      </section>
+  const toggleAvailability = (item: string) => {
+    setAvailability((prev) => ({
+      ...prev,
+      [item]: !prev[item],
+    }));
+  };
 
+  const Section = ({
+    title,
+    items,
+  }: {
+    title: string;
+    items: string[];
+  }) => (
+    <div className="mt-6">
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
 
+      <div className="grid grid-cols-2 gap-2">
+        {items.map((item) => (
+          <div
+            key={item}
+            className={`border rounded-xl p-3 shadow cursor-pointer flex justify-between items-center
+            ${selected.includes(item) ? "bg-green-100 border-green-500" : "bg-white"}
+            ${availability[item] === false ? "opacity-40" : ""}
+          `}
+            onClick={() => toggleSelect(item)}
+          >
+            <span className="text-sm">{item}</span>
 
-      {/* ---------------- SMART CATEGORIES ---------------- */}
-      <section className="px-4 mt-6">
-        <h2 className="text-xl font-semibold mb-2">Shop by Health Goal</h2>
-
-        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
-          {[
-            "⚡ Energy Boosters",
-            "🏋️‍♂️ Post Workout",
-            "🥗 Weight Loss",
-            "🍊 Immunity Boost",
-            "🍓 Exotic Luxury",
-            "🧑‍💼 Corporate Refresh",
-          ].map((c, i) => (
-            <span
-              key={i}
-              className="whitespace-nowrap bg-gray-100 border px-4 py-2 rounded-2xl shadow-sm"
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleAvailability(item);
+              }}
+              className={`text-xs px-2 py-1 rounded-lg ${
+                availability[item] === false
+                  ? "bg-red-500 text-white"
+                  : "bg-green-500 text-white"
+              }`}
             >
-              {c}
-            </span>
-          ))}
-        </div>
-      </section>
-
-
-
-      {/* ---------------- DIY BUILDER BANNER ---------------- */}
-      <section className="px-4 mt-6">
-        <div className="bg-gradient-to-r from-green-500 to-emerald-400 p-5 rounded-2xl shadow-lg text-white">
-          <h2 className="text-xl font-bold">Your Bowl. Your Taste. Your Power.</h2>
-          <p className="text-sm mt-1">
-            Choose Base → Pick Fruits → Add Boosters
-          </p>
-
-          <a href="/builder">
-            <button className="mt-3 bg-white text-green-700 font-semibold px-4 py-2 rounded-lg shadow">
-              Start Building ⭐
+              {availability[item] === false ? "Unavailable" : "Available"}
             </button>
-          </a>
-        </div>
-      </section>
-
-
-
-      {/* ---------------- BEST SELLERS ---------------- */}
-      <section className="px-4 mt-6">
-        <h2 className="text-xl font-semibold mb-2">Bestsellers 🔥</h2>
-
-        <div className="grid grid-cols-1 gap-4">
-
-          <BowlCard
-            name="Vitamin Power Punch"
-            desc="Apple • Kiwi • Orange • Honey"
-            kcal="220 kcal"
-            price="₹149"
-            img="https://images.unsplash.com/photo-1540420773420-3366772f4999"
-            link="/order?item=Vitamin Power Punch"
-          />
-
-          <BowlCard
-            name="Zesty Weight Loss Mix"
-            desc="Papaya • Pineapple • Watermelon"
-            kcal="180 kcal"
-            price="₹129"
-            img="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
-            link="/order?item=Weight Loss Mix"
-          />
-
-          <BowlCard
-            name="Protein Charge Bowl"
-            desc="Fruits + Nuts + Seeds"
-            kcal="260 kcal"
-            price="₹179"
-            img="https://images.unsplash.com/photo-1551024601-bec78aea704b"
-            link="/order?item=Protein Charge Bowl"
-          />
-
-        </div>
-      </section>
-
-
-
-      {/* ---------------- TRUST / FRESHNESS SECTION ---------------- */}
-      <section className="px-4 mt-8 mb-10">
-        <div className="bg-gray-100 p-5 rounded-2xl shadow">
-          <h2 className="text-lg font-semibold mb-2">Freshness Promise 🍃</h2>
-
-          <ul className="space-y-1 text-gray-700 text-sm">
-            <li>✔ Sourced fresh every morning</li>
-            <li>✔ Zero-contact hygienic preparation</li>
-            <li>✔ Airtight premium packaging</li>
-            <li>✔ Delivered within 15 minutes</li>
-          </ul>
-        </div>
-      </section>
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
 
-
-
-// ---------------------- BOWL CARD COMPONENT ----------------------
-function BowlCard({ name, desc, kcal, price, img, link }: any) {
   return (
-    <div className="border rounded-2xl shadow-sm overflow-hidden hover:scale-[1.01] transition bg-white">
-      <img src={img} className="w-full h-36 object-cover" />
+    <div className="min-h-screen bg-white pb-24">
+      <div className="p-5">
+        <h1 className="text-2xl font-bold">
+          Build Your Bowl <span>🍓</span>
+        </h1>
+        <p className="text-gray-600 text-sm">
+          Choose your favorite fruits & salads. Toggle to mark availability.
+        </p>
 
-      <div className="p-4">
-        <h3 className="font-semibold text-lg">{name}</h3>
-        <p className="text-gray-500 text-sm">{desc}</p>
+        {/* ---------------- CORE FRUITS ---------------- */}
+        <Section
+          title="🍎 Core Base Fruits (Always Available)"
+          items={[
+            "Red Apple (लाल सेब)",
+            "Green Apple (हरा सेब)",
+            "Banana (केला)",
+            "Papaya (पपीता)",
+            "Pomegranate (अनार)",
+            "Pineapple (अनानास)",
+            "Guava (अमरुद)",
+            "Pear (नाशपाती)",
+            "Sapodilla / Chiku (चीकू)",
+            "Watermelon (तरबूज)",
+          ]}
+        />
 
-        <div className="flex justify-between items-center mt-3">
-          <span className="text-gray-600 text-sm">{kcal}</span>
+        {/* ---------------- CITRUS ---------------- */}
+        <Section
+          title="🍊 Citrus & Refreshing Fruits"
+          items={[
+            "Orange (संतरा)",
+            "Sweet Lime / Mosambi (मौसंबी)",
+            "Grapefruit (चकोतरा)",
+            "Tangerine / Mandarin (नागपुर संतरा)",
+            "Lemon / Lime (नींबू)",
+            "Pomelo (चकोतरा)",
+            "Kinnow (किन्नू)",
+            "Muskmelon (खरबूजा)",
+            "Honeydew Melon (हनीड्यू)",
+            "Sun Melon (सन खरबूजा)",
+          ]}
+        />
 
-          <a href={link}>
-            <button className="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">
-              {price}
-            </button>
-          </a>
+        {/* ---------------- BERRIES ---------------- */}
+        <Section
+          title="🍓 Berries & Premium Fruits"
+          items={[
+            "Strawberry (स्ट्रॉबेरी)",
+            "Blueberry (ब्लूबेरी)",
+            "Blackberry (ब्लैकबेरी)",
+            "Raspberry (रसभरी)",
+            "Black Grapes (काले अंगूर)",
+            "Green Grapes (हरे अंगूर)",
+            "Red Grapes (लाल अंगूर)",
+            "Cherry (चेरी)",
+            "Mulberry (शहतूत)",
+            "Cape Gooseberry / Rasbhari (रसभरी)",
+          ]}
+        />
+
+        {/* ---------------- TROPICAL ---------------- */}
+        <Section
+          title="🌴 Tropical & Exotic Fruits"
+          items={[
+            "Mango (आम)",
+            "Kiwi (कीवी)",
+            "Dragon Fruit (ड्रैगन फ्रूट)",
+            "Avocado (ऐवोकाडो)",
+            "Lychee (लीची)",
+            "Passion Fruit (पैशन फ्रूट)",
+            "Star Fruit (कमरख)",
+            "Custard Apple / Sharifa (सीताफल)",
+            "Jackfruit (कटहल)",
+            "Mangosteen (मेंगोस्टीन)",
+          ]}
+        />
+
+        {/* ---------------- STONE FRUITS ---------------- */}
+        <Section
+          title="🍑 Stone Fruits & Unique Textures"
+          items={[
+            "Peach (आड़ू)",
+            "Plum (आलूबुखारा)",
+            "Apricot (खुबानी)",
+            "Nectarine (नेक्टरीन)",
+            "Persimmon (तेंदू/जापानी फल)",
+            "Fig / Anjeer (अंजीर)",
+            "Coconut Chunks (नारियल)",
+            "Fresh Dates (खजूर)",
+            "Wood Apple / Bael (बेल)",
+            "Jujube / Ber (बेर)",
+          ]}
+        />
+
+        {/* ---------------- SALAD BASES ---------------- */}
+        <Section
+          title="🥗 Salad Base Greens"
+          items={[
+            "Iceberg Lettuce (आइसबर्ग लेट्यूस)",
+            "Romaine Lettuce (रोमेन लेट्यूस)",
+            "Baby Spinach (पालक)",
+            "Purple Cabbage (बैंगनी पत्ता गोभी)",
+            "Arugula / Rocket Leaves (रॉकेट पत्ता)",
+          ]}
+        />
+
+        {/* ---------------- SALAD CRUNCH ---------------- */}
+        <Section
+          title="🥒 Salad Crunch & Veggies"
+          items={[
+            "English Cucumber (खीरा)",
+            "Cherry Tomatoes (चेरी टमाटर)",
+            "Bell Peppers (शिमला मिर्च)",
+            "Carrot (गाजर)",
+            "Broccoli (ब्रोकली)",
+          ]}
+        />
+
+        {/* ---------------- PROTEINS ---------------- */}
+        <Section
+          title="💪 Protein & Fillers"
+          items={[
+            "Chickpeas / Chana (चना)",
+            "Paneer (पनीर)",
+            "Tofu (टोफू)",
+            "Sweet Corn (भुट्टा)",
+            "Boiled Peanuts / Walnuts (मूंगफली/अखरोट)",
+            "Kidney Beans / Rajma (राजमा)",
+          ]}
+        />
+
+        {/* ---------------- TOPPINGS ---------------- */}
+        <Section
+          title="✨ Toppings & Flavor Boosters"
+          items={[
+            "Feta Cheese (फेटा चीज़)",
+            "Parmesan (पार्मेज़ान)",
+            "Black & Green Olives (जैतून)",
+            "Jalapeño (जलेपेनो)",
+            "Pickled Onion (अचार वाला प्याज)",
+            "Mixed Seeds (मिक्स बीज)",
+          ]}
+        />
+
+        {/* Selected */}
+        <div className="mt-8 p-4 bg-gray-100 rounded-xl">
+          <h3 className="font-semibold mb-2">Selected Items:</h3>
+          {selected.length === 0 ? (
+            <p className="text-gray-500 text-sm">No items selected yet</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {selected.map((i) => (
+                <span
+                  key={i}
+                  className="px-3 py-1 bg-green-200 rounded-full text-sm"
+                >
+                  {i}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
+
+        <button className="w-full mt-5 bg-green-600 text-white p-4 rounded-xl text-lg font-semibold shadow">
+          Continue to Price & Checkout →
+        </button>
       </div>
     </div>
   );

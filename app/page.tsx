@@ -28,11 +28,6 @@ export default function Home() {
         </div>
       </section>
 
-    </div>
-  );
-}
-
-
 
       {/* ---------------- SMART CATEGORIES ---------------- */}
       <section className="px-4 mt-6">
@@ -58,7 +53,6 @@ export default function Home() {
       </section>
 
 
-
       {/* ---------------- DIY BUILDER BANNER ---------------- */}
       <section className="px-4 mt-6">
         <div className="bg-gradient-to-r from-green-500 to-emerald-400 p-5 rounded-2xl shadow-lg text-white">
@@ -67,14 +61,13 @@ export default function Home() {
             Choose Base → Pick Fruits → Add Boosters
           </p>
 
-          <a href="/builder">
+          <Link href="/builder">
             <button className="mt-3 bg-white text-green-700 font-semibold px-4 py-2 rounded-lg shadow">
               Start Building ⭐
             </button>
-          </a>
+          </Link>
         </div>
       </section>
-
 
 
       {/* ---------------- BEST SELLERS ---------------- */}
@@ -114,7 +107,6 @@ export default function Home() {
       </section>
 
 
-
       {/* ---------------- TRUST / FRESHNESS SECTION ---------------- */}
       <section className="px-4 mt-8 mb-10">
         <div className="bg-gray-100 p-5 rounded-2xl shadow">
@@ -128,10 +120,10 @@ export default function Home() {
           </ul>
         </div>
       </section>
+
     </div>
   );
 }
-
 
 
 // ---------------------- BOWL CARD COMPONENT ----------------------

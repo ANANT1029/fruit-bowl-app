@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,7 +18,8 @@ export default function Home() {
           <h1 className="text-2xl font-bold">Fresh • Healthy • Fast</h1>
           <p className="text-gray-600">Fruit Bowls & Salads delivered in 15 minutes</p>
 
-          <a href="/builder">
+          <Link href="/builder"></Link>
+        
             <button className="mt-4 bg-green-500 text-white px-5 py-3 rounded-xl w-full font-semibold shadow">
               Build Your Own Bowl 🍓
             </button>

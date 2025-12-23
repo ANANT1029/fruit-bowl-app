@@ -16,16 +16,21 @@ export default function Home() {
 
         <div className="px-4 mt-4">
           <h1 className="text-2xl font-bold">Fresh • Healthy • Fast</h1>
-          <p className="text-gray-600">Fruit Bowls & Salads delivered in 15 minutes</p>
+          <p className="text-gray-600">
+            Fruit Bowls & Salads delivered in 15 minutes
+          </p>
 
-          <Link href="/builder"></Link>
-        
+          <Link href="/builder">
             <button className="mt-4 bg-green-500 text-white px-5 py-3 rounded-xl w-full font-semibold shadow">
               Build Your Own Bowl 🍓
             </button>
-          </a>
+          </Link>
         </div>
       </section>
+
+    </div>
+  );
+}
 
 
 

@@ -505,8 +505,20 @@ const allowedSizes = [5, 7, 9];
             : "bg-gray-100"
         }`}
       >
-        {size} Fruits
+          {size} Fruits
       </button>
     ))}
   </div>
 </div>
+
+{/* CONTINUE BUTTON */}
+<button
+  onClick={handleContinue}
+  className="w-full bg-green-600 text-white p-4 rounded-xl mt-5 text-lg font-semibold"
+>
+  Continue →
+</button>
+ </div>
+    </div>
+  );
+}

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Fruit = {
   name: string;
@@ -363,8 +364,11 @@ const fruits: Fruit[] = [
 ];
 
 export default function Builder() {
-  const [selected, setSelected] = useState<string[]>([]);
-  const [filter, setFilter] = useState<string>("all");
+const [selected, setSelected] = useState<string[]>([]);
+const [filter, setFilter] = useState<string>("all");
+const router = useRouter();
+const [basketSize, setBasketSize] = useState<number | null>(null);
+const allowedSizes = [5, 7, 9];
 
   const toggleSelect = (name: string) => {
     setSelected(prev =>
@@ -378,6 +382,23 @@ export default function Builder() {
     filter === "all"
       ? fruits
       : fruits.filter(f => f.tag.includes(filter));
+      
+  const handleContinue = () => {
+    if (!basketSize) {
+      alert("Please select basket size");
+      return;
+    }
+
+    if (selected.length !== basketSize) {
+      alert(`Please select exactly ${basketSize} fruits`);
+      return;
+    }
+
+    alert("Basket Saved! Redirecting to Checkout 🚀");
+
+    router.push("/checkout");
+  };
+
 
   return (
     <div className="min-h-screen bg-white pb-28">
@@ -447,32 +468,45 @@ export default function Builder() {
           ))}
         </div>
 
-        {/* SELECTED SECTION */}
-        <div className="mt-6 p-4 bg-gray-100 rounded-xl">
-          <h3 className="font-semibold">Selected Fruits</h3>
-          {selected.length === 0 ? (
-            <p className="text-gray-500 text-sm">
-              No fruits selected yet
-            </p>
-          ) : (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {selected.map(i => (
-                <span
-                  key={i}
-                  className="px-3 py-1 bg-green-300 rounded-full text-sm"
-                >
-                  {i}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+{/* SELECTED SECTION */}
+<div className="mt-6 p-4 bg-gray-100 rounded-xl">
+  <h3 className="font-semibold">Selected Fruits</h3>
 
-        {/* CONTINUE */}
-        <button className="w-full bg-green-600 text-white p-4 rounded-xl mt-5 text-lg font-semibold">
-          Continue →
-        </button>
-      </div>
+  {selected.length === 0 ? (
+    <p className="text-gray-500 text-sm">
+      No fruits selected yet
+    </p>
+  ) : (
+    <div className="flex flex-wrap gap-2 mt-2">
+      {selected.map(i => (
+        <span
+          key={i}
+          className="px-3 py-1 bg-green-300 rounded-full text-sm"
+        >
+          {i}
+        </span>
+      ))}
     </div>
-  );
-}
+  )}
+</div>
+
+{/* Basket Size Selection */}
+<div className="mt-6">
+  <h3 className="font-semibold mb-2">Select Basket Size</h3>
+
+  <div className="flex gap-3">
+    {allowedSizes.map(size => (
+      <button
+        key={size}
+        onClick={() => setBasketSize(size)}
+        className={`px-4 py-2 rounded-xl border ${
+          basketSize === size
+            ? "bg-green-600 text-white"
+            : "bg-gray-100"
+        }`}
+      >
+        {size} Fruits
+      </button>
+    ))}
+  </div>
+</div>

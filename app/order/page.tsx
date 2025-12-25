@@ -1,13 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default function OrderPage() {
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="p-5 text-lg">Loading checkout...</div>}>
+      <OrderPage />
+    </Suspense>
+  );
+}
 
+function OrderPage() {
   const params = useSearchParams();
 
   const size = Number(params.get("size")) || 0;

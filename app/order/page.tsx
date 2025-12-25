@@ -1,26 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
-export default function Page() {
-  return (
-    <Suspense fallback={<div className="p-5 text-lg">Loading checkout...</div>}>
-      <OrderPage />
-    </Suspense>
-  );
-}
-
-function OrderPage() {
+export default function OrderPage() {
   const params = useSearchParams();
 
   const size = Number(params.get("size")) || 0;
   const items = params.get("items")
-    ? params.get("items")!.split(",")
+    ? decodeURIComponent(params.get("items")!).split(",")
     : [];
 
   const priceMap: Record<number, number> = {
@@ -35,6 +23,11 @@ function OrderPage() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [success, setSuccess] = useState(false);
+
+  // Needed to avoid hydration mismatch sometimes
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  if (!ready) return <main className="p-5 text-lg">Loading...</main>;
 
   const placeOrder = () => {
     if (!name || !phone || !address) {
@@ -60,22 +53,32 @@ function OrderPage() {
     setSuccess(true);
   };
 
+  // SUCCESS SCREEN
   if (success) {
     return (
       <main className="p-5">
         <h1 className="text-2xl font-bold">✅ Order Placed</h1>
 
-        <p className="mt-2">Status: <b>Order Placed</b></p>
+        <p className="mt-2 text-lg">
+          Your fruit basket is confirmed 🎉
+        </p>
 
-        <a href="/payment">
-          <button className="mt-4 bg-green-600 text-white px-4 py-3 rounded-xl w-full">
-            Proceed to Payment →
+        <div className="bg-green-100 border p-4 rounded-xl mt-4">
+          <p><b>Fruits:</b> {items.join(", ")}</p>
+          <p><b>Basket:</b> {size} Fruits</p>
+          <p><b>Total:</b> ₹{price}</p>
+        </div>
+
+        <a href="/">
+          <button className="mt-5 bg-green-600 text-white px-4 py-3 rounded-xl w-full text-lg">
+            Go Back Home →
           </button>
         </a>
       </main>
     );
   }
 
+  // CHECKOUT PAGE
   return (
     <main className="p-5">
       <h1 className="text-2xl font-bold mb-2">🧺 Checkout</h1>

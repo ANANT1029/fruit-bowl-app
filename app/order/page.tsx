@@ -3,7 +3,11 @@
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function OrderPage() {
+
   const params = useSearchParams();
 
   const size = Number(params.get("size")) || 0;

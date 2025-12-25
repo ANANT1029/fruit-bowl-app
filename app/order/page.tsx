@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function OrderPage() {
+export default function OrderClient() {
   const params = useSearchParams();
 
   const size = Number(params.get("size")) || 0;
@@ -23,11 +23,6 @@ export default function OrderPage() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [success, setSuccess] = useState(false);
-
-  // Needed to avoid hydration mismatch sometimes
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
-  if (!ready) return <main className="p-5 text-lg">Loading...</main>;
 
   const placeOrder = () => {
     if (!name || !phone || !address) {
@@ -53,15 +48,10 @@ export default function OrderPage() {
     setSuccess(true);
   };
 
-  // SUCCESS SCREEN
   if (success) {
     return (
       <main className="p-5">
         <h1 className="text-2xl font-bold">✅ Order Placed</h1>
-
-        <p className="mt-2 text-lg">
-          Your fruit basket is confirmed 🎉
-        </p>
 
         <div className="bg-green-100 border p-4 rounded-xl mt-4">
           <p><b>Fruits:</b> {items.join(", ")}</p>
@@ -78,7 +68,6 @@ export default function OrderPage() {
     );
   }
 
-  // CHECKOUT PAGE
   return (
     <main className="p-5">
       <h1 className="text-2xl font-bold mb-2">🧺 Checkout</h1>

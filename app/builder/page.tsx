@@ -391,7 +391,7 @@ const allowedSizes = [5, 7, 9];
     alert("Basket Saved! Redirecting to Checkout 🚀");
 
   const query = `type=custom&size=${basketSize}&items=${selected.join(",")}`;
-   router.push(`/order?${query}`);
+router.push(`/order?${query}`);
   };
 
 

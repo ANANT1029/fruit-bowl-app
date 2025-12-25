@@ -354,13 +354,7 @@ const fruits: Fruit[] = [
     category: "Citrus",
     tag: ["easyPeel", "kids", "sweet"]
   },
-  {
-    name: "Quince",
-    hindi: "श्रीफल",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",
-    category: "Core",
-    tag: ["aroma", "rare", "health"]
-  }
+
 ];
 
 export default function Builder() {
@@ -396,7 +390,8 @@ const allowedSizes = [5, 7, 9];
 
     alert("Basket Saved! Redirecting to Checkout 🚀");
 
-    router.push("/checkout");
+  const query = `type=custom&size=${basketSize}&items=${selected.join(",")}`;
+   router.push(`/order?${query}`);
   };
 
 

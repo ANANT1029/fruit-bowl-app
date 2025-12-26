@@ -13,9 +13,11 @@ export type NutritionTag =
   | "fiber"
   | "healthyFat"
   | "lowCal"
-  | "hydration"
   | "energy"
-  | "antioxidant";
+  | "antioxidant"
+  | "potassium"
+  | "immunity"
+  | "hydration";
 
 export interface Fruit {
   name: string;
@@ -43,7 +45,7 @@ export const fruits: Fruit[] = [
     hindi: "केला",
     image: "https://images.unsplash.com/photo-1574226516831-e1dff420e12e",
     uiCategory: "Gym & Energy",
-    nutrition: ["energy", "potassium", "fiber"],
+    nutrition: ["energy", "energy", "fiber"],
     seasonal: "allSeason",
     kidsFriendly: true
   },

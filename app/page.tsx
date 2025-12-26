@@ -1,151 +1,177 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-white text-black pb-20">
+  const [address] = useState("Dehradun");
 
-      {/* ---------------- HERO CAROUSEL ---------------- */}
-      <section className="w-full overflow-hidden">
-        <div className="w-full h-48 rounded-b-2xl overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1576402187878-974f5a016c35"
-            className="w-full h-full object-cover"
-          />
+  return (
+    <div className="min-h-screen bg-gray-50 pb-20">
+
+      {/* -------- ADDRESS + DELIVERY BAR -------- */}
+      <div className="px-4 py-3 bg-white shadow flex justify-between items-center">
+        <div>
+          <p className="text-sm text-gray-500">Delivering to</p>
+          <p className="font-semibold text-lg">{address}</p>
+          <p className="text-green-600 text-sm">Delivery in 10–20 mins ⏱️</p>
         </div>
 
-        <div className="px-4 mt-4">
-          <h1 className="text-2xl font-bold">Fresh • Healthy • Fast</h1>
-          <p className="text-gray-600">
-            Fruit Bowls & Salads delivered in 15 minutes
-          </p>
+        <button className="text-sm border px-3 py-1 rounded-lg">
+          Change
+        </button>
+      </div>
 
-          <Link href="/builder">
-            <button className="mt-4 bg-green-500 text-white px-5 py-3 rounded-xl w-full font-semibold shadow">
-              Build Your Own Bowl 🍓
-            </button>
-          </Link>
+
+      {/* -------- SEARCH BAR -------- */}
+      <div className="px-4 mt-3">
+        <div className="bg-white p-3 rounded-full shadow flex items-center gap-2">
+          <span className="text-gray-500">🔍</span>
+          <input
+            placeholder="Search fruits, salads, bowls..."
+            className="w-full outline-none"
+          />
+          <span className="text-gray-500">🎤</span>
+        </div>
+      </div>
+
+
+      {/* -------- QUICK CATEGORY ICONS -------- */}
+      <section className="px-4 mt-4">
+        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+
+          {[
+            { name: "Fruit Bowls", emoji: "🍓" },
+            { name: "Salad Bowls", emoji: "🥗" },
+            { name: "Build Your Bowl", emoji: "🧺" },
+            { name: "Weight Loss", emoji: "🔥" },
+            { name: "Energy Boost", emoji: "⚡" },
+            { name: "Immunity", emoji: "🛡️" },
+          ].map((c, i) => (
+            <div key={i} className="flex flex-col items-center">
+              <div className="bg-white shadow rounded-full p-4">
+                <span className="text-xl">{c.emoji}</span>
+              </div>
+              <p className="text-sm mt-1">{c.name}</p>
+            </div>
+          ))}
+
         </div>
       </section>
 
 
-      {/* ---------------- SMART CATEGORIES ---------------- */}
-      <section className="px-4 mt-6">
-        <h2 className="text-xl font-semibold mb-2">Shop by Health Goal</h2>
+      {/* -------- SMALL PROMO BANNER -------- */}
+      <section className="px-4 mt-4">
+        <div className="bg-green-200 rounded-2xl p-4 flex justify-between items-center">
+          <div>
+            <h3 className="font-bold text-lg">
+              Morning Fruit Bowls from ₹99
+            </h3>
+            <p className="text-sm text-gray-700">
+              Freshly cut · Delivered fast
+            </p>
 
-        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+            <Link href="/builder">
+              <button className="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg">
+                Build Your Bowl ⭐
+              </button>
+            </Link>
+          </div>
+
+          <img
+            src="https://images.unsplash.com/photo-1540420773420-3366772f4999"
+            className="w-20 h-20 rounded-xl object-cover"
+          />
+        </div>
+      </section>
+
+
+      {/* -------- TOP PICKS GRID -------- */}
+      <section className="px-4 mt-5">
+        <h2 className="text-lg font-semibold mb-2">Top Picks for You</h2>
+
+        <div className="grid grid-cols-2 gap-3">
           {[
-            "⚡ Energy Boosters",
-            "🏋️‍♂️ Post Workout",
-            "🥗 Weight Loss",
-            "🍊 Immunity Boost",
-            "🍓 Exotic Luxury",
-            "🧑‍💼 Corporate Refresh",
-          ].map((c, i) => (
-            <span
-              key={i}
-              className="whitespace-nowrap bg-gray-100 border px-4 py-2 rounded-2xl shadow-sm"
-            >
-              {c}
-            </span>
+            {
+              name: "Vitamin Power Punch",
+              price: "₹149",
+              img: "https://images.unsplash.com/photo-1540420773420-3366772f4999",
+              link: "/order?item=Vitamin Bowl"
+            },
+            {
+              name: "Weight Loss Mix",
+              price: "₹129",
+              img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+              link: "/order?item=Weight Loss"
+            },
+            {
+              name: "Energy Booster",
+              price: "₹159",
+              img: "https://images.unsplash.com/photo-1551024601-bec78aea704b",
+              link: "/order?item=Energy"
+            },
+          ].map((p, i) => (
+            <div key={i} className="bg-white p-2 rounded-xl shadow">
+              <img src={p.img} className="h-24 w-full rounded-xl object-cover"/>
+
+              <p className="font-semibold text-sm mt-1">{p.name}</p>
+
+              <div className="flex justify-between items-center mt-1">
+                <span className="font-bold">{p.price}</span>
+
+                <a href={p.link}>
+                  <button className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm">
+                    + Add
+                  </button>
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
 
-      {/* ---------------- DIY BUILDER BANNER ---------------- */}
+      {/* -------- COLLECTION CAROUSEL -------- */}
       <section className="px-4 mt-6">
-        <div className="bg-gradient-to-r from-green-500 to-emerald-400 p-5 rounded-2xl shadow-lg text-white">
-          <h2 className="text-xl font-bold">Your Bowl. Your Taste. Your Power.</h2>
-          <p className="text-sm mt-1">
-            Choose Base → Pick Fruits → Add Boosters
-          </p>
+        <h2 className="text-lg font-semibold mb-2">Weight Loss Bowls 🔥</h2>
 
-          <Link href="/builder">
-            <button className="mt-3 bg-white text-green-700 font-semibold px-4 py-2 rounded-lg shadow">
-              Start Building ⭐
-            </button>
-          </Link>
+        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+          {[1,2,3,4].map(i => (
+            <div key={i} className="bg-white min-w-[150px] p-2 rounded-xl shadow">
+              <img
+                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
+                className="h-24 w-full rounded-xl object-cover"
+              />
+              <p className="font-semibold text-sm mt-1">Low Cal Mix</p>
+              <p className="font-bold">₹129</p>
+            </div>
+          ))}
         </div>
       </section>
 
 
-      {/* ---------------- BEST SELLERS ---------------- */}
+      {/* -------- FRESHNESS PROMISE -------- */}
       <section className="px-4 mt-6">
-        <h2 className="text-xl font-semibold mb-2">Bestsellers 🔥</h2>
+        <div className="bg-white p-4 rounded-2xl shadow">
+          <h3 className="font-semibold mb-2">Freshness Promise 🍃</h3>
 
-        <div className="grid grid-cols-1 gap-4">
-
-          <BowlCard
-            name="Vitamin Power Punch"
-            desc="Apple • Kiwi • Orange • Honey"
-            kcal="220 kcal"
-            price="₹149"
-            img="https://images.unsplash.com/photo-1540420773420-3366772f4999"
-            link="/order?item=Vitamin Power Punch"
-          />
-
-          <BowlCard
-            name="Zesty Weight Loss Mix"
-            desc="Papaya • Pineapple • Watermelon"
-            kcal="180 kcal"
-            price="₹129"
-            img="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
-            link="/order?item=Weight Loss Mix"
-          />
-
-          <BowlCard
-            name="Protein Charge Bowl"
-            desc="Fruits + Nuts + Seeds"
-            kcal="260 kcal"
-            price="₹179"
-            img="https://images.unsplash.com/photo-1551024601-bec78aea704b"
-            link="/order?item=Protein Charge Bowl"
-          />
-
-        </div>
-      </section>
-
-
-      {/* ---------------- TRUST / FRESHNESS SECTION ---------------- */}
-      <section className="px-4 mt-8 mb-10">
-        <div className="bg-gray-100 p-5 rounded-2xl shadow">
-          <h2 className="text-lg font-semibold mb-2">Freshness Promise 🍃</h2>
-
-          <ul className="space-y-1 text-gray-700 text-sm">
-            <li>✔ Sourced fresh every morning</li>
-            <li>✔ Zero-contact hygienic preparation</li>
-            <li>✔ Airtight premium packaging</li>
+          <ul className="text-sm text-gray-700 space-y-1">
+            <li>✔ Cut fresh after order</li>
+            <li>✔ No added sugar</li>
+            <li>✔ Sealed hygienic packing</li>
             <li>✔ Delivered within 15 minutes</li>
           </ul>
         </div>
       </section>
 
-    </div>
-  );
-}
 
+      {/* -------- BOTTOM NAV -------- */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white shadow h-14 flex justify-around items-center text-sm">
+        <a href="/" className="text-green-600 font-semibold">🏠 Home</a>
+        <a href="/builder">🧺 Build</a>
+        <a href="/Orders">📦 Orders</a>
+        <a href="/admin">👤 Account</a>
+      </nav>
 
-// ---------------------- BOWL CARD COMPONENT ----------------------
-function BowlCard({ name, desc, kcal, price, img, link }: any) {
-  return (
-    <div className="border rounded-2xl shadow-sm overflow-hidden hover:scale-[1.01] transition bg-white">
-      <img src={img} className="w-full h-36 object-cover" />
-
-      <div className="p-4">
-        <h3 className="font-semibold text-lg">{name}</h3>
-        <p className="text-gray-500 text-sm">{desc}</p>
-
-        <div className="flex justify-between items-center mt-3">
-          <span className="text-gray-600 text-sm">{kcal}</span>
-
-          <a href={link}>
-            <button className="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">
-              {price}
-            </button>
-          </a>
-        </div>
-      </div>
     </div>
   );
 }

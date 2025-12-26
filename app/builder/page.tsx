@@ -18,13 +18,7 @@ const fruits: Fruit[] = [
     category: "Core",
     tag: ["sweet", "energy", "kids", "allSeason"]
   },
-  {
-    name: "Green Apple",
-    hindi: "हरा सेब",
-    image: "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a",
-    category: "Core",
-    tag: ["fiber", "digestion", "weightLoss"]
-  },
+
   {
     name: "Banana",
     hindi: "केला",
@@ -180,20 +174,6 @@ const fruits: Fruit[] = [
     tag: ["sweet", "calcium", "energy"]
   },
   {
-    name: "Litchi",
-    hindi: "लीची",
-    image: "https://images.unsplash.com/photo-1574316071802-0d684efa7bf5",
-    category: "Tropical",
-    tag: ["juicy", "seasonal", "sweet"]
-  },
-  {
-    name: "Cherry",
-    hindi: "चेरी",
-    image: "https://images.unsplash.com/photo-1528821128474-27f9e7785893",
-    category: "Berries",
-    tag: ["visual", "small", "premium"]
-  },
-  {
     name: "Coconut",
     hindi: "नारियल",
     image: "https://images.unsplash.com/photo-1584947844002-3932824e868a",
@@ -214,90 +194,7 @@ const fruits: Fruit[] = [
     category: "Core",
     tag: ["iron", "fiber", "premium"]
   },
-  {
-    name: "Star Fruit",
-    hindi: "कमरख",
-    image: "https://images.unsplash.com/photo-1596350310214-5f16c7ccb85d",
-    category: "Exotic",
-    tag: ["visual", "tangy", "unique"]
-  },
-  {
-    name: "Apricot",
-    hindi: "खुबानी",
-    image: "https://images.unsplash.com/photo-1559181567-c3190cb9959b",
-    category: "Tropical",
-    tag: ["soft", "vitaminA", "skin"]
-  },
-  {
-    name: "Raspberry",
-    hindi: "रसभरी",
-    image: "https://images.unsplash.com/photo-1534353436294-0dbd4bdac845",
-    category: "Berries",
-    tag: ["premium", "visual", "tart"]
-  },
-  {
-    name: "Blackberry",
-    hindi: "जामुन",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",
-    category: "Berries",
-    tag: ["antioxidant", "dark", "superfood"]
-  },
-  {
-    name: "Nectarine",
-    hindi: "नेक्टराइन",
-    image: "https://images.unsplash.com/photo-1595124253349-20f4e6504127",
-    category: "Tropical",
-    tag: ["smooth", "juicy", "sweet"]
-  },
-  {
-    name: "Persimmon",
-    hindi: "तेंदू फल",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",
-    category: "Exotic",
-    tag: ["sweet", "unique", "texture"]
-  },
-  {
-    name: "Jackfruit",
-    hindi: "कटहल",
-    image: "https://images.unsplash.com/photo-1596430324803-fb94e1e35d10",
-    category: "Tropical",
-    tag: ["energy", "heavy", "sweet"]
-  },
-  {
-    name: "Pomelo",
-    hindi: "पॉमेलो",
-    image: "https://images.unsplash.com/photo-1557800636-894a64c1696f",
-    category: "Citrus",
-    tag: ["large", "vitaminC", "fresh"]
-  },
-  {
-    name: "Passion Fruit",
-    hindi: "कृष्णा फल",
-    image: "https://images.unsplash.com/photo-1530131272421-2ba03a7b1cb4",
-    category: "Exotic",
-    tag: ["aroma", "premium", "tangy"]
-  },
-  {
-    name: "Mulberry",
-    hindi: "शहतूत",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",
-    category: "Berries",
-    tag: ["iron", "seasonal", "sweet"]
-  },
-  {
-    name: "Cape Gooseberry",
-    hindi: "रसभरी",
-    image: "https://images.unsplash.com/photo-1596350310214-5f16c7ccb85d",
-    category: "Berries",
-    tag: ["tangy", "immunity", "small"]
-  },
-  {
-    name: "Wood Apple",
-    hindi: "बेल",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",
-    category: "Core",
-    tag: ["digestion", "ayurveda", "summer"]
-  },
+
   {
     name: "Jujube",
     hindi: "बेर",
@@ -305,13 +202,7 @@ const fruits: Fruit[] = [
     category: "Core",
     tag: ["crunchy", "seasonal", "kids"]
   },
-  {
-    name: "Pomegranate (Seedless)",
-    hindi: "सिंदूरी अनार",
-    image: "https://images.unsplash.com/photo-1615484477778-ca3b77940c25",
-    category: "Core",
-    tag: ["premium", "blood", "sweet"]
-  },
+
   {
     name: "Kinnow",
     hindi: "किन्नू",
@@ -319,27 +210,7 @@ const fruits: Fruit[] = [
     category: "Citrus",
     tag: ["winter", "juice", "vitaminC"]
   },
-  {
-    name: "Honeydew Melon",
-    hindi: "खरबूजा (हरा)",
-    image: "https://images.unsplash.com/photo-1571771019784-3ff35f4f4277",
-    category: "Core",
-    tag: ["sweet", "hydration", "soft"]
-  },
-  {
-    name: "Longan",
-    hindi: "लीची जैसा",
-    image: "https://images.unsplash.com/photo-1574316071802-0d684efa7bf5",
-    category: "Exotic",
-    tag: ["premium", "sweet", "unique"]
-  },
-  {
-    name: "Mangosteen",
-    hindi: "मैंगोस्टीन",
-    image: "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2",
-    category: "Exotic",
-    tag: ["premium", "rare", "sweet"]
-  },
+
   {
     name: "Date Fruit",
     hindi: "खजूर",

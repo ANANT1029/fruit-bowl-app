@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function OrderClient() {
+export default function OrderPage() {
   const params = useSearchParams();
 
   const size = Number(params.get("size")) || 0;
   const items = params.get("items")
-    ? decodeURIComponent(params.get("items")!).split(",")
+    ? params.get("items")!.split(",")
     : [];
 
   const priceMap: Record<number, number> = {
@@ -53,15 +53,13 @@ export default function OrderClient() {
       <main className="p-5">
         <h1 className="text-2xl font-bold">✅ Order Placed</h1>
 
-        <div className="bg-green-100 border p-4 rounded-xl mt-4">
-          <p><b>Fruits:</b> {items.join(", ")}</p>
-          <p><b>Basket:</b> {size} Fruits</p>
-          <p><b>Total:</b> ₹{price}</p>
-        </div>
+        <p className="mt-2">
+          Status: <b>Order Placed</b>
+        </p>
 
-        <a href="/">
-          <button className="mt-5 bg-green-600 text-white px-4 py-3 rounded-xl w-full text-lg">
-            Go Back Home →
+        <a href="/payment">
+          <button className="mt-4 bg-green-600 text-white px-4 py-3 rounded-xl w-full">
+            Proceed to Payment →
           </button>
         </a>
       </main>
@@ -91,29 +89,27 @@ export default function OrderClient() {
       </div>
 
       <div className="bg-green-100 border border-green-500 p-4 rounded-xl mb-4">
-        <p className="font-semibold text-lg">
-          Total Price: ₹{price}
-        </p>
+        <p className="font-semibold text-lg">Total Price: ₹{price}</p>
       </div>
 
       <input
         placeholder="Your Name"
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         className="border w-full p-3 rounded mb-2"
       />
 
       <input
         placeholder="Phone Number"
         value={phone}
-        onChange={e => setPhone(e.target.value)}
+        onChange={(e) => setPhone(e.target.value)}
         className="border w-full p-3 rounded mb-2"
       />
 
       <textarea
         placeholder="Delivery Address"
         value={address}
-        onChange={e => setAddress(e.target.value)}
+        onChange={(e) => setAddress(e.target.value)}
         className="border w-full p-3 rounded mb-3"
       />
 

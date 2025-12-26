@@ -2,8 +2,20 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function OrderPage() {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="p-5 text-lg">Loading checkout...</div>}>
+      <OrderPage />
+    </Suspense>
+  );
+}
+
+function OrderPage() {
   const params = useSearchParams();
 
   const size = Number(params.get("size")) || 0;
@@ -53,9 +65,7 @@ export default function OrderPage() {
       <main className="p-5">
         <h1 className="text-2xl font-bold">✅ Order Placed</h1>
 
-        <p className="mt-2">
-          Status: <b>Order Placed</b>
-        </p>
+        <p className="mt-2">Status: <b>Order Placed</b></p>
 
         <a href="/payment">
           <button className="mt-4 bg-green-600 text-white px-4 py-3 rounded-xl w-full">
@@ -89,27 +99,29 @@ export default function OrderPage() {
       </div>
 
       <div className="bg-green-100 border border-green-500 p-4 rounded-xl mb-4">
-        <p className="font-semibold text-lg">Total Price: ₹{price}</p>
+        <p className="font-semibold text-lg">
+          Total Price: ₹{price}
+        </p>
       </div>
 
       <input
         placeholder="Your Name"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={e => setName(e.target.value)}
         className="border w-full p-3 rounded mb-2"
       />
 
       <input
         placeholder="Phone Number"
         value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        onChange={e => setPhone(e.target.value)}
         className="border w-full p-3 rounded mb-2"
       />
 
       <textarea
         placeholder="Delivery Address"
         value={address}
-        onChange={(e) => setAddress(e.target.value)}
+        onChange={e => setAddress(e.target.value)}
         className="border w-full p-3 rounded mb-3"
       />
 

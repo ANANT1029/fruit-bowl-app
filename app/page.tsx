@@ -96,13 +96,13 @@ function Section({ title, data }: any) {
   );
 }
 
-/* ---------------- CUSTOMISE SECTION ---------------- */
+/* ---------------- CUSTOMIZE SECTION ---------------- */
 
 function CustomizeSection() {
   return (
     <div className="mt-6 px-4">
       <h3 className="font-semibold text-lg mb-2">
-        My Bowl, My Taste (Customise) 🥗
+        My Bowl, My Taste (Customize) 🥗
       </h3>
 
       <div className="flex gap-3 overflow-x-auto pb-2">
@@ -116,7 +116,7 @@ function CustomizeSection() {
 
             <Link href="/builder">
               <button className="mt-2 w-full bg-green-600 text-white px-3 py-1 rounded-lg text-sm">
-                Customise →
+                Customize →
               </button>
             </Link>
           </div>
